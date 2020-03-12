@@ -14,8 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from App_Normocontrol import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name = 'index'),  # Main url TODO Сделать аутентификацюю
+    path('student/', views.student, name = 'student'), # student url TODO Сделать фронт и вывод прошлых встреч для чека замечаний + логика записи
+    path('teacher/', views.teacher, name = 'teacher'), # teacher url TODO Сделать фронт + систему просмотра встреч и времени и всякое короче
 ]

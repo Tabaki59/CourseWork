@@ -10,14 +10,14 @@
       <Owner>postgres</Owner>
       <IntrospectionStateNumber>603</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|16502|16504|1
-sequence|table|16513|16515|1
+      <Relations>sequence|table|16513|16515|1
 sequence|table|16523|16525|1
 sequence|table|16531|16533|1
 sequence|table|16541|16543|1
 sequence|table|16549|16551|1
 sequence|table|16559|16561|1
 sequence|table|16567|16569|1
+sequence|table|16502|16504|1
 sequence|table|16627|16629|1
 </Relations>
     </database>

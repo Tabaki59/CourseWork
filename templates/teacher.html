@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Система "Преподаватель - Студент" {% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+
+        {% if students_list %}
+            {% for a in students_list %}
+                <a href="#">{{ a.name }}</a>
+            {% endfor %}
+        {% else %}
+            База студентов пуста
+        {% endif %}
+
+    {% endblock %}
+</body>
+</html>
