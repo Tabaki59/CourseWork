@@ -7,28 +7,6 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-class Freetime(models.Model):
-    freetime_id = models.IntegerField(db_column='Freetime_id', primary_key=True)  # Field name made lowercase.
-    mon_beg = models.TimeField(db_column='Mon_beg', blank=True, null=True)  # Field name made lowercase.
-    mon_end = models.TimeField(db_column='Mon_end', blank=True, null=True)  # Field name made lowercase.
-    tue_beg = models.TimeField(db_column='Tue_beg', blank=True, null=True)  # Field name made lowercase.
-    tue_end = models.TimeField(db_column='Tue_end', blank=True, null=True)  # Field name made lowercase.
-    wen_beg = models.TimeField(db_column='Wen_beg', blank=True, null=True)  # Field name made lowercase.
-    wen_end = models.TimeField(db_column='Wen_end', blank=True, null=True)  # Field name made lowercase.
-    thu_beg = models.TimeField(db_column='Thu_beg', blank=True, null=True)  # Field name made lowercase.
-    thu_end = models.TimeField(db_column='Thu_end', blank=True, null=True)  # Field name made lowercase.
-    fri_beg = models.TimeField(db_column='Fri_beg', blank=True, null=True)  # Field name made lowercase.
-    fri_end = models.TimeField(db_column='Fri_end', blank=True, null=True)  # Field name made lowercase.
-
-    def __str__(self):
-        return str('Свободное время для преподавателя: ' + str(self.freetime_id))
-
-    class Meta:
-        db_table = 'Freetime'
-        verbose_name = 'Диапазоны времени, не редактировать без добавления нового преподавателя'
-        verbose_name_plural = 'Диапазоны времени, не редактировать без добавления нового преподавателя'
-
-
 class Group(models.Model):
     group_id = models.IntegerField(db_column='Group_id', primary_key=True)  # Field name made lowercase.
     group = models.CharField(db_column='Group', max_length=5)  # Field name made lowercase.
@@ -108,7 +86,8 @@ class Teachers(models.Model):
     email = models.TextField(db_column='Email')  # Field name made lowercase.
     phone = models.TextField(db_column='Phone')  # Field name made lowercase.
     login = models.TextField(db_column='Login')  # Field name made lowercase.
-    freetime = models.ForeignKey(Freetime, models.CASCADE, db_column='Freetime', blank=True, null=True)  # Field name made lowercase.
+    free_beg = models.TimeField(db_column='Free_beg', blank=True, null=True)  # Field name made lowercase.
+    free_end = models.TimeField(db_column='Free_end', blank=True, null=True)  # Field name made lowercase.
 
     def __str__(self):
         return self.name

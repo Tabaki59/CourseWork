@@ -5,17 +5,40 @@
     <title>{% block title %} Система "Преподаватель - Студент" {% endblock %}</title>
 </head>
 <body>
-    {% block content %}
-
-        {% if teachers_time_list %}
-            {% for a in teachers_time_list %}
-                <a href="#">{{ a.name }}</a>
+    <div>
+    <table style="border-collapse: collapse">
+    <thead style="background-color: rgb(190, 220, 240); font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 20px;">
+          <tr>
+              <td> Преподаватель </td>
+              <td colspan = 2> Свободное время преподавателя на сегодня </td>
+              <td>  </td>
+              </tr>
+          <tr>
+              <td> </td>
+              <td>Свободен с:</td>
+              <td>Свободен до:</td>
+              <td> </td>
+    </tr>
+    </thead>
+    <tbody style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 16px;">
+    <tr>
+     {% block content %}
+        {% if teachers %}
+            {% for a in teachers %}
+                <tr class = "teacher {{ a.teacher_id }}">
+                    <td>{{ a.name }}</td>
+                 <td>{{ a.free_beg }}</td>
+                 <td>{{ a.free_end }}</td>
+                 <td>Записаться</td>
+                </tr>
             {% endfor %}
-
         {% else %}
             База преподавателей пуста
         {% endif %}
-
     {% endblock %}
+    </tr>
+    </tbody>
+    </table>
+    </div>
 </body>
 </html>

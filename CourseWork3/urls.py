@@ -19,7 +19,8 @@ from App_Normocontrol import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name = 'index'),  # Main url TODO Сделать аутентификацюю
-    path('student/', views.student, name = 'student'), # student url TODO Сделать фронт и вывод прошлых встреч для чека замечаний + логика записи
+    path('', views.user_login, name = 'user_login'),  # Main url TODO Сделать аутентификацюю
+   # path('student/<int: student_id>', views.student, name = 'student'), # student url TODO Сделать фронт и вывод прошлых встреч для чека замечаний + логика записи
+    # path('create')
     path('teacher/', views.teacher, name = 'teacher'), # teacher url TODO Сделать фронт + систему просмотра встреч и времени и всякое короче
 ]
