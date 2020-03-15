@@ -8,17 +8,17 @@
     <database id="2" parent="1" name="Normocontrol">
       <ObjectId>16412</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>612</IntrospectionStateNumber>
+      <IntrospectionStateNumber>630</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|16502|16504|1
-sequence|table|16513|16515|1
-sequence|table|16523|16525|1
+      <Relations>sequence|table|16523|16525|1
 sequence|table|16531|16533|1
 sequence|table|16541|16543|1
 sequence|table|16549|16551|1
 sequence|table|16559|16561|1
 sequence|table|16567|16569|1
 sequence|table|16627|16629|1
+sequence|table|16502|16504|1
+sequence|table|16513|16515|1
 </Relations>
     </database>
     <database id="3" parent="1" name="postgres">
@@ -75,7 +75,7 @@ sequence|table|16627|16629|1
       <Comment>standard public schema</Comment>
       <StateNumber>276</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>613</IntrospectionStateNumber>
+      <IntrospectionStateNumber>631</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="16" parent="2" name="heap">
@@ -468,11 +468,11 @@ sequence|table|16627|16629|1
       <Primary>1</Primary>
       <UnderlyingIndexName>School_pkey</UnderlyingIndexName>
     </key>
-    <column id="73" parent="37" name="Student_id">
+    <column id="73" parent="37" name="student_id">
       <Position>1</Position>
       <DataType>char(6)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>504</StateNumber>
+      <StateNumber>628</StateNumber>
       <TypeId>1042</TypeId>
     </column>
     <column id="74" parent="37" name="Name">
@@ -527,14 +527,14 @@ sequence|table|16627|16629|1
     <index id="81" parent="37" name="Students_pkey">
       <ObjectId>16448</ObjectId>
       <StateNumber>504</StateNumber>
-      <ColNames>Student_id</ColNames>
+      <ColNames>student_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
     <key id="82" parent="37" name="Students_pkey">
       <ObjectId>16449</ObjectId>
       <StateNumber>504</StateNumber>
-      <ColNames>Student_id</ColNames>
+      <ColNames>student_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>Students_pkey</UnderlyingIndexName>
     </key>
@@ -568,11 +568,11 @@ sequence|table|16627|16629|1
       <RefKeyName>School_pkey</RefKeyName>
       <RefColNames>School_id</RefColNames>
     </foreign-key>
-    <column id="86" parent="38" name="Teacher_id">
+    <column id="86" parent="38" name="teacher_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>505</StateNumber>
+      <StateNumber>629</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="87" parent="38" name="Name">
@@ -625,14 +625,14 @@ sequence|table|16627|16629|1
     <index id="94" parent="38" name="Teachers_pkey">
       <ObjectId>16456</ObjectId>
       <StateNumber>505</StateNumber>
-      <ColNames>Teacher_id</ColNames>
+      <ColNames>teacher_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
     <key id="95" parent="38" name="Teachers_pkey">
       <ObjectId>16457</ObjectId>
       <StateNumber>505</StateNumber>
-      <ColNames>Teacher_id</ColNames>
+      <ColNames>teacher_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>Teachers_pkey</UnderlyingIndexName>
     </key>

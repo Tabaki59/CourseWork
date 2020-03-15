@@ -61,7 +61,7 @@ class School(models.Model):
 
 
 class Students(models.Model):
-    student_id = models.CharField(db_column='Student_id', primary_key=True, max_length=6)  # Field name made lowercase.
+    student_id = models.CharField(db_column='student_id', primary_key=True, max_length=6)  # Field name made lowercase.
     name = models.TextField(db_column='Name')  # Field name made lowercase.
     group = models.ForeignKey(Group, models.DO_NOTHING, db_column='Group')  # Field name made lowercase.
     work = models.ForeignKey('Work', models.DO_NOTHING, db_column='Work')  # Field name made lowercase.
@@ -80,7 +80,7 @@ class Students(models.Model):
 
 
 class Teachers(models.Model):
-    teacher_id = models.IntegerField(db_column='Teacher_id', primary_key=True)  # Field name made lowercase.
+    teacher_id = models.IntegerField(db_column='teacher_id', primary_key=True)  # Field name made lowercase.
     name = models.TextField(db_column='Name')  # Field name made lowercase.
     password = models.TextField(db_column='Password')  # Field name made lowercase.
     email = models.TextField(db_column='Email')  # Field name made lowercase.
