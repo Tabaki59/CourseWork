@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login
 def index(request):
     return render(request, 'base.html', {})
 
-def enter(request):
+def enter(request, href):
     if request.method == 'POST':
         user_login = request.POST['user_login']
         password = request.POST['password']
@@ -17,9 +17,11 @@ def enter(request):
         if t is not None:
             id = t.teacher_id
             href = '/teacher/' + str(t.teacher_id)
+            return HttpResponseRedirect(reverse(href))
+            # return request, href
             # return HttpResponse(href)
             # return teacher(request, id)
-            return HttpResponseRedirect(reverse(teacher , args= id ))
+            # return HttpResponseRedirect(reverse(teacher , args= id ))
             # return HttpResponseRedirect(resolve(href))
             # return render(request, 'teachers.html', {'href': href})
 
@@ -27,16 +29,17 @@ def enter(request):
         if s is not None:
             id = s.student_id
             href = 'student/' + str(s.student_id)
+            return HttpResponseRedirect(reverse(href))
             # return HttpResponse(href)
-            # return href
+            # return request, href
             # return student(request, id)
-            return HttpResponseRedirect(reverse(student, args= id))
+            # return HttpResponseRedirect(reverse(student, args= id))
             # return HttpResponseRedirect(resolve(href))
             # return render(request, 'student.html', {'href': href})
 
         else:
-            return render(request, 'base.html')
-
+            href = ""
+            return HttpResponseRedirect(reverse(href))
 
 
 # Function for student form  TODO Вытащить на вьюшку переключение по дням недели с датами, там сслка будет менять день в зависимости от него вытаскивать нужный интервал

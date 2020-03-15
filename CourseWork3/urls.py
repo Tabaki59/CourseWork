@@ -21,7 +21,7 @@ from App_Normocontrol import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name = 'index'),  # Main url
-    path(r'', views.enter, name = 'enter'),
-    path(r'student/<str:student_id>/', views.student, name = 'student'), # student url TODO Сделать фронт и вывод прошлых встреч для чека замечаний + логика записи
-    path(r'teacher/<str:teacher_id>/', views.teacher, name = 'teacher'), # teacher url TODO Сделать фронт + систему просмотра встреч и времени и всякое короче
+    path(r'user/<str:href>', views.enter, name = 'enter'),
+    path(r'user/student/<str:student_id>/', views.student, name = 'student'), # student url TODO Сделать фронт и вывод прошлых встреч для чека замечаний + логика записи
+    path(r'user/teacher/<str:teacher_id>/', views.teacher, name = 'teacher'), # teacher url TODO Сделать фронт + систему просмотра встреч и времени и всякое короче
 ]
