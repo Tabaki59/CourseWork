@@ -8,17 +8,17 @@
     <database id="2" parent="1" name="Normocontrol">
       <ObjectId>16412</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>630</IntrospectionStateNumber>
+      <IntrospectionStateNumber>632</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|16627|16629|1
-sequence|table|16523|16525|1
-sequence|table|16502|16504|1
+      <Relations>sequence|table|16502|16504|1
 sequence|table|16513|16515|1
+sequence|table|16523|16525|1
 sequence|table|16531|16533|1
 sequence|table|16541|16543|1
 sequence|table|16549|16551|1
 sequence|table|16559|16561|1
 sequence|table|16567|16569|1
+sequence|table|16627|16629|1
 </Relations>
     </database>
     <database id="3" parent="1" name="postgres">
@@ -75,7 +75,7 @@ sequence|table|16567|16569|1
       <Comment>standard public schema</Comment>
       <StateNumber>276</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>631</IntrospectionStateNumber>
+      <IntrospectionStateNumber>633</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="16" parent="2" name="heap">
