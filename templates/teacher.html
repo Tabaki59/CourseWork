@@ -3,18 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} Система "Преподаватель - Студент" {% endblock %}</title>
+    {% block Inform %}
+            <div class="Information_about_teacher"><p> {{ teacher.name }}</p>
+            <p> Cвободен с: {{ teacher.free_beg }} до: {{ teacher.free_end }}</p>
+            </div>
+        {% endblock %}
 </head>
 <body>
-    {% block content %}
-
-        {% if students_list %}
-            {% for a in students_list %}
-                <a href="#">{{ a.name }}</a>
-            {% endfor %}
-        {% else %}
-            База студентов пуста
-        {% endif %}
-
-    {% endblock %}
+     <div>
+                {% block meetings %}
+                    {% if meeting %}
+                         <table>
+                            <thead>
+                                <tr>
+                                    <td> Назначенные встречи : </td>
+                                </tr>
+                                <tr>
+                                    <td> Время встречи </td>
+                                    <td> Длительность встречи </td>
+                                    <td> Студент </td>
+                                    <td>  </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        {% for m in meeting %}
+                            <tr>
+                                <td>{{ m.meeting_time }}</td>
+                                <td> 15 минут </td>
+                                <td>{{ m.student }}  </td>
+                                <td> <a href=""> Начать встречу</a> </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                    {% else %}
+                     У вас еще нет назначенных встреч
+                    {% endif %}
+                {% endblock %}
+    </div>
+    <form action="{% url 'teacher' teacher.teacher_id %}" method="post">
+        {% csrf_token %}
+        <p> Планы меняются, теперь я свободен с: <input input type="time" name="begin" required /> до: <input input type="time" name="end" required />
+        </p>
+     <p><button input type="submit">Изменить время</button></p>
+    </form>
 </body>
 </html>

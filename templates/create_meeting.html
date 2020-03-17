@@ -7,7 +7,34 @@
 <body>
  <form action="{% url 'create_meeting' student.student_id teacher.teacher_id %}" method="post">
      {% csrf_token %}
-     <p>Выбранный преподаватель: {{ teacher.name }}</p>
+     <p>Выбранный преподаватель: {{ teacher.name }} свободен с: {{ teacher.free_beg }} до: {{ teacher.free_end }}</p>
+     <div>
+                {% block meetings %}
+                    {% if meeting %}
+                         <table>
+                            <thead>
+                                <tr>
+                                    <td> Назначенные встречи данного преподавателя: </td>
+                                </tr>
+                                <tr>
+                                    <td> Время встречи </td>
+                                    <td> Длительность встречи </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        {% for m in meeting %}
+                            <tr>
+                                <td>{{ m.meeting_time }}</td>
+                                <td> 15 минут </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                    {% else %}
+                     У данного преподавателя нет назначенных встреч
+                    {% endif %}
+                {% endblock %}
+    </div>
      <p>Работа для контроля: {{ student.work }}</p>
      <p>Записывающийся студент: {{ student.name }}</p>
      <input input type="time" name="time" required />
