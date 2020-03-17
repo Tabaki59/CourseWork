@@ -44,15 +44,15 @@ def enter(request):
         return render(request, 'base.html')
 
 
-# Вьюха студента TODO вывести список встреч по ключу с возможностью детального просмотра (не надо детального)
+# Вьюха студента (Готова)
 def student(request, student_id):
     s = Students.objects.get(student_id=student_id)
     t = Teachers.objects.all()
-    m = Meeting.objects.filter(student = s.student_id)
+    m = Meeting.objects.filter(student=s.student_id)
     return render(request, 'student.html', {'teachers': t, 'student': s, 'meetings': m})
 
 
-# Вьюшка создания встречи TODO Протестировать проверки хотя итак работает все, но для верности
+# Создание встречи (Готова но тесты пока не все проведены) TODO Протестировать проверки хотя итак работает все
 def create_meeting(request, student_id, teacher_id):  # Все проверки готовы
     s = Students.objects.get(student_id=student_id)
     t = Teachers.objects.get(teacher_id=teacher_id)
@@ -85,7 +85,10 @@ def create_meeting(request, student_id, teacher_id):  # Все проверки 
         return render(request, 'create_meeting.html', {'teacher': t, 'student': s, 'error': error})
 
 
-# Function for teacher's view TODO Сделать список встреч и редачить время
+# Вьюха препода TODO Сделать список встреч со ссылкой на начало ее и редачить время
 def teacher(request, teacher_id):
-    students_list = Students.objects.order_by()
-    return render(request, 'teacher.html', {'students_list': students_list})
+    return render(request, 'teacher.html', {})
+
+# TODO Вьюха для самого процесса контроля
+def check():
+    pass
