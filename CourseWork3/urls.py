@@ -23,5 +23,5 @@ urlpatterns = [
     path(r'', views.enter, name = 'enter'),
     path(r'student/<str:student_id>/', views.student, name = 'student'), # student url
     path(r'teacher/<str:teacher_id>/', views.teacher, name = 'teacher'), # teacher url
-    # path()
+    path(r'student/<str:student_id>/create_meeting_with_<str:teacher_id>_teacher', views.create_meeting, name = 'create_meeting')
 ]

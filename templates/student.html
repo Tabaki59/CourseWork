@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} Система "Преподаватель - Студент" {% endblock %}</title>
-    <>
+        {% block Inform %}
+            <div class="Information_about_student"><p> {{ student.name }}</p>
+            <p> {{ student.group }}</p>
+            <p> {{ student.work }}</p>
+            </div>
+        {% endblock %}
 </head>
 <body>
     <div>
@@ -25,12 +30,12 @@
     <tr>
      {% block content %}
         {% if teachers %}
-            {% for a in teachers %}
-                <tr class = "teacher {{ a.teacher_id }}">
-                    <td>{{ a.name }}</td>
-                 <td>{{ a.free_beg }}</td>
-                 <td>{{ a.free_end }}</td>
-                 <td>Записаться</td>
+            {% for t in teachers %}
+                <tr class = "teacher {{ t.teacher_id }}">
+                    <td>{{ t.name }}</td>
+                 <td>{{ t.free_beg }}</td>
+                 <td>{{ t.free_end }}</td>
+                 <td><a href="create_meeting_with_{{t.teacher_id}}_teacher">Записаться</a></td>
                 </tr>
             {% endfor %}
         {% else %}
@@ -40,6 +45,34 @@
     </tr>
     </tbody>
     </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td> Преподаватель </td>
+                    <td> Состояние встречи </td>
+                    <td> Время встречи </td>
+                    <td> Заметки </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% block meetings %}
+                    {% if meetings %}
+                        {% for m in meetings %}
+                            <tr>
+                                <td>{{ m.teacher }}</td>
+                                <td>{{ m.meeting_status }}</td>
+                                <td>{{ m.meeting_time }}</td>
+                                <td>{{ m.notes }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                    Вы еще ни у кого не были ай - яй - яй
+                    {% endif %}
+                {% endblock %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

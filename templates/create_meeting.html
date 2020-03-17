@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание встречи</title>
+</head>
+<body>
+ <form action="{% url 'create_meeting' student.student_id teacher.teacher_id %}" method="post">
+     {% csrf_token %}
+     <p>Выбранный преподаватель: {{ teacher.name }}</p>
+     <p>Работа для контроля: {{ student.work }}</p>
+     <p>Записывающийся студент: {{ student.name }}</p>
+     <input input type="time" name="time" required />
+     <p><button input type="submit">Записаться</button></p>
+ </form>
+            {% block alert %}
+            {% if error %}
+                <script>
+                alert('На данное время нельзя записаться')
+                </script>
+            {% endif %}
+            {% endblock %}
+</body>
+</html>

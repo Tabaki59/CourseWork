@@ -43,7 +43,6 @@ class MeetingStatus(models.Model):
         return self.status
 
     class Meta:
-        managed = False
         db_table = 'Meeting_status'
 
 

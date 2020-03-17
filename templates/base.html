@@ -51,5 +51,12 @@
       <button input type="submit">Войти в систему</button>
     </form>
   </div>
+            {% block alert %}
+            {% if login_incorrect %}
+                <script>
+                alert('Данные введены неверно')
+                </script>
+            {% endif %}
+            {% endblock %}
 </body>
 </html>
