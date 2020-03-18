@@ -31,7 +31,7 @@
                                 <td>{{ m.meeting_time }}</td>
                                 <td> 15 минут </td>
                                 <td>{{ m.student }}  </td>
-                                <td> <a href=""> Начать встречу</a> </td>
+                                <td> <a href="check_meeting{{ m.meeting_id }}"> Начать встречу</a> </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -43,7 +43,7 @@
     </div>
     <form action="{% url 'teacher' teacher.teacher_id %}" method="post">
         {% csrf_token %}
-        <p> Планы меняются, теперь я свободен с: <input input type="time" name="begin" required /> до: <input input type="time" name="end" required />
+        <p> Планы меняются, теперь я свободен с: <input type="time" name="begin" required /> до: <input input type="time" name="end" required />
         </p>
      <p><button input type="submit">Изменить время</button></p>
     </form>

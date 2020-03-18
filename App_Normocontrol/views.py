@@ -1,13 +1,12 @@
 from django.shortcuts import render
-from django.urls import reverse, resolve
+from django.urls import reverse
 from django.utils.dateparse import parse_date, parse_time
 from .models import Students, Teachers, Meeting, Work, MeetingStatus
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.contrib.auth import authenticate, login
-from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Max
-from datetime import datetime, date, time
+from datetime import datetime, date, timedelta
+import time as time_t
 
 
 # Функция входа в систему (Готова)
@@ -59,10 +58,10 @@ def create_meeting(request, student_id, teacher_id):  # Все проверки 
     m = Meeting.objects.filter(teacher=t.teacher_id, meeting_status=1)
     status = MeetingStatus.objects.get(status_id=1)
     error = False
-    duration = datetime.time(minute=15)
+    duration = timedelta(minutes = 15)
     if request.method == 'POST':
         time = parse_time(request.POST.get('time', ''))
-        if t.free_beg > time > t.free_end:
+        if t.free_beg.hour > time.hour > t.free_end.hour: # Проблема раз
             error = True
             return render(request, 'create_meeting.html', {'teacher': t, 'student': s, 'error': error, 'meeting': m})
         else:
@@ -72,9 +71,10 @@ def create_meeting(request, student_id, teacher_id):  # Все проверки 
                 if not Meeting.objects.filter(student=s.student_id, meeting_status=status.status_id):
                     teachers_meeting_today = Meeting.objects.filter(teacher=t.teacher_id)
                     for obj in teachers_meeting_today:
-                        if obj.meeting_time < time < (obj.meeting_time + duration):
+                        if obj.meeting_time < time < (obj.meeting_time + duration): # Проблема два
                             error = True
                             return render(request, 'create_meeting.html', {'teacher': t, 'student': s, 'error': error, 'meeting': m})
+                    time_for_debug = t.free_beg # Смотрю тут тип так, для дебага
                     meet_id = Meeting.objects.aggregate(Max('meeting_id')) + 1
                     m = Meeting.objects.create(meeting_id=meet_id, meeting_time=time, student=s, teacher=t,
                                                meeting_status=status)  # В случае с учитeлем и студентом не передаем поле, передаем экземипляр
@@ -86,7 +86,7 @@ def create_meeting(request, student_id, teacher_id):  # Все проверки 
         return render(request, 'create_meeting.html', {'teacher': t, 'student': s, 'error': error, 'meeting': m})
 
 
-# Вьюха препода TODO Сделать список встреч со ссылкой на начало ее и редачить время
+# Вьюха препода (В целом готова) TODO Сделать чтоб встречи наконец тянулись за временем препода
 def teacher(request, teacher_id):
     t = Teachers.objects.get(teacher_id = teacher_id)
     m = Meeting.objects.filter(teacher=t.teacher_id, meeting_status=1)
@@ -96,14 +96,44 @@ def teacher(request, teacher_id):
         dif_beg = datetime.combine(date.min, begin) - datetime.combine(date.min, t.free_beg)
         t.free_beg = begin
         t.free_end = end
+        t.save()
         for obj in m:
             new_time = (datetime.combine(date.min, obj.meeting_time) + dif_beg).time()
-            if begin > new_time > end:
-                obj.delete()
+            if begin > new_time > end: # Проблема что время не сравнивается
+                del_obj = Meeting.objects.get(meeting_id = obj.meeting_id)
+                del_obj.delete()
+                # obj.delete()
             else:
                 obj.meeting_time = new_time
+                obj.save()
     return render(request, 'teacher.html', {'teacher': t,'meeting': m})
 
-# TODO Вьюха для самого процесса контроля
-def check():
-    pass
+
+# Непосредственно проверка работы (Готова)
+def check(request, teacher_id, meeting_id):
+    t = Teachers.objects.get(teacher_id = teacher_id)
+    m = Meeting.objects.get(meeting_id = meeting_id)
+    s = Students.objects.get(**{"student_id": m.student_id})
+    w = Work.objects.get(type_name = s.work)
+    status = MeetingStatus.objects.get(status_id=2)
+    dict_for_checkbox = {
+        'general': 'общем оформлении, ',
+        'title': 'заголовках, ',
+        'lists': 'списках, ',
+        'tables': 'таблицах, ',
+        'formulas': 'формулах, ',
+        'pictures': 'оформлении иллюстраций, ',
+        'literature': 'библиографическом списке, ',
+        'applications': 'приложениях, '
+    }
+    if request.method == 'POST':
+        notes = 'Есть замечания в: '
+        for key in dict_for_checkbox:
+            if request.POST.get(str(dict_for_checkbox[key]), 'checked'):
+                notes += dict_for_checkbox.get(key)
+        notes += request.POST.get('notes')
+        m.notes = notes
+        m.meeting_status = status
+        m.save()
+        return HttpResponseRedirect(reverse(teacher, args=(str(t.teacher_id))))
+    return render(request, 'check_meeting.html', {'teacher': t, 'meeting': m, 'student': s, 'work': w})

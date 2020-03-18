@@ -85,8 +85,8 @@ class Teachers(models.Model):
     email = models.TextField(db_column='Email')  # Field name made lowercase.
     phone = models.TextField(db_column='Phone')  # Field name made lowercase.
     login = models.TextField(db_column='Login')  # Field name made lowercase.
-    free_beg = models.TimeField(db_column='Free_beg', blank=True, null=True)  # Field name made lowercase.
-    free_end = models.TimeField(db_column='Free_end', blank=True, null=True)  # Field name made lowercase.
+    free_beg = models.TimeField(db_column='Free_beg', null=True)  # Field name made lowercase.
+    free_end = models.TimeField(db_column='Free_end', null=True)  # Field name made lowercase.
 
     def __str__(self):
         return self.name
