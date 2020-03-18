@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Система "Преподаватель - Студент" {% endblock %}</title>
+    <p>{{ teacher.name }} встреча с {{ student.name }}, согласно системе назначена на: {{ meeting.meeting_time }}</p>
+</head>
+<body>
+    <div>
+    {% block checking %}
+            <form action="{% url 'check' teacher.teacher_id meeting.meeting_id %}" method="post" style="max-width: 720px; position: absolute; top: 25px;">
+                {% csrf_token %}
+                <p>Есть замечания в: </p>
+                        <p class="select_errors"><input type="checkbox" value="общем оформлении, " name="errors">Общих критериях</p>
+                        <p class="select_errors"><input type="checkbox" value="заголовках, "  name="errors">Оформлении заголовков</p>
+                        <p class="select_errors"><input type="checkbox"  value="списках, " name="errors">Оформлении списков</p>
+                        <p class="select_errors"><input type="checkbox"  value="таблицах, " name="errors">Оформлении таблиц</p>
+                        <p class="select_errors"><input type="checkbox" value="формулах, " name="errors">Оформлении формул</p>
+                        <p class="select_errors"><input type="checkbox" value="оформлении иллюстраций, " name="errors">Оформлении иллюстраций</p>
+                        <p class="select_errors"><input type="checkbox" value="библиографическом списке, " name="errors">Оформлении библиографического списка</p>
+                        <p class="select_errors"><input type="checkbox" value="приложениях, " name="errors">Оформлении приложений</p>
+                        <script>
+                            document.querySelector('.select_errors').style.paddingTop = '5px'
+                        </script>
+                    <p>
+                        <textarea style="resize: none; width: 460px; height: 190px;" name="notes"> Дополнительные замечания: </textarea>
+                    </p>
+                <p><button input type="submit">Завершить встречу</button></p>
+            </form>
+     {% endblock %}
+    {% block work_prompt %}
+        <form style="max-width: 720px; position: absolute; top: 25px; left: 860px;">
+            <p>Тип работы: {{ work.type_name }}</p>
+            <p>Основные критерии оформления: {{ work.general_criteria }}</p>
+            <p>Критерии оформления заголовков: {{ work.titles_criteria }}</p>
+            <p>Критерии оформления списков: {{ work.lists_criteria }}</p>
+            <p>Критерии оформления таблиц: {{ work.tables_criteria }}</p>
+            <p>Вывод формул: {{ work.formulas_criteria }}</p>
+            <p>Критерии оформления иллюстраций: {{ work.pictures_criteria }}</p>
+            <p>Критерии оформления библиографического списка: {{ work.literature_criteria }}</p>
+            <p>Критерии оформления приложений: {{ work.applications_criteria }}</p>
+        </form>
+     {% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Система "Преподаватель - Студент" {% endblock %}</title>
+        {% block Inform %}
+            <div class="Information_about_student"><p> {{ student.name }}</p>
+            <p> {{ student.group }}</p>
+            <p> {{ student.work }}</p>
+            </div>
+        {% endblock %}
+</head>
+<body>
+    <div>
+    <table style="border-collapse: collapse">
+    <thead style="background-color: rgb(190, 220, 240); font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 20px;">
+          <tr>
+              <td> Преподаватель </td>
+              <td colspan = 2> Свободное время преподавателя на сегодня </td>
+              <td>  </td>
+              </tr>
+          <tr>
+              <td> </td>
+              <td>Свободен с:</td>
+              <td>Свободен до:</td>
+              <td> </td>
+    </tr>
+    </thead>
+    <tbody style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 16px;">
+    <tr>
+     {% block content %}
+        {% if teachers %}
+            {% for t in teachers %}
+                <tr class = "teacher {{ t.teacher_id }}">
+                    <td>{{ t.name }}</td>
+                 <td>{{ t.free_beg }}</td>
+                 <td>{{ t.free_end }}</td>
+                 <td><a href="create_meeting_with_{{t.teacher_id}}_teacher">Записаться</a></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            База преподавателей пуста
+        {% endif %}
+    {% endblock %}
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td> Преподаватель </td>
+                    <td> Состояние встречи </td>
+                    <td> Время встречи </td>
+                    <td> Заметки </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% block meetings %}
+                    {% if meetings %}
+                        {% for m in meetings %}
+                            <tr>
+                                <td>{{ m.teacher }}</td>
+                                <td>{{ m.meeting_status }}</td>
+                                <td>{{ m.meeting_time }}</td>
+                                <td>{{ m.notes }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                    Вы еще ни у кого не были ай - яй - яй
+                    {% endif %}
+                {% endblock %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

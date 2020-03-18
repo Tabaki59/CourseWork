@@ -1,10 +1,62 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Система записи на прием</title>
+    <title>{% block title %} Система "Преподаватель - Студент"  {% endblock %} </title>
 </head>
-<body>
-
+<body style=" background-image: url({% static 'hse.jpg' %}); -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%; /* Современные браузеры */">
+    <div class="form", style="position: relative;
+    z-index: 1;
+    max-width: 360px;
+    max-height: 420px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    margin-top: 330px;
+    text-align: center;">
+    <form
+            action="{% url 'enter' %}"
+           method="POST" style=" font-family: 'Roboto', sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: thick double #32a1ce;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;" , class="login-form">
+        {% csrf_token %}
+      <input style="font-family: 'Roboto', sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 2px;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;" input name="user_login" required value="" placeholder="Логин"/>
+      <input style="font-family: 'Roboto', sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 2px;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;" input type="password" name="password" required value="" placeholder="Пароль"/>
+      <button input type="submit">Войти в систему</button>
+    </form>
+  </div>
+            {% block alert %}
+            {% if login_incorrect %}
+                <script>
+                alert('Данные введены неверно')
+                </script>
+            {% endif %}
+            {% endblock %}
 </body>
 </html>
