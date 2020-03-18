@@ -51,7 +51,7 @@ def student(request, student_id):
     return render(request, 'student.html', {'teachers': t, 'student': s, 'meetings': m})
 
 
-# Создание встречи (Готова) TODO Протестировать проверки хотя итак работает все
+# Создание встречи (Готова) TODO Не работает проверки со временем, Не работает генерация нового айди встречи
 def create_meeting(request, student_id, teacher_id):  # Все проверки готовы
     s = Students.objects.get(student_id=student_id)
     t = Teachers.objects.get(teacher_id=teacher_id)
@@ -86,7 +86,7 @@ def create_meeting(request, student_id, teacher_id):  # Все проверки 
         return render(request, 'create_meeting.html', {'teacher': t, 'student': s, 'error': error, 'meeting': m})
 
 
-# Вьюха препода (В целом готова) TODO Сделать чтоб встречи наконец тянулись за временем препода
+# Вьюха препода (В целом готова) TODO Не работает проверки со временем
 def teacher(request, teacher_id):
     t = Teachers.objects.get(teacher_id = teacher_id)
     m = Meeting.objects.filter(teacher=t.teacher_id, meeting_status=1)
@@ -128,9 +128,9 @@ def check(request, teacher_id, meeting_id):
     }
     if request.method == 'POST':
         notes = 'Есть замечания в: '
-        for key in dict_for_checkbox:
-            if request.POST.get(str(dict_for_checkbox[key]), 'checked'):
-                notes += dict_for_checkbox.get(key)
+        errors = request.POST.getlist('errors')
+        for e in errors:
+            notes += e
         notes += request.POST.get('notes')
         m.notes = notes
         m.meeting_status = status

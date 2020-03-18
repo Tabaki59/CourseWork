@@ -11,14 +11,14 @@
             <form action="{% url 'check' teacher.teacher_id meeting.meeting_id %}" method="post" style="max-width: 720px; position: absolute; top: 25px;">
                 {% csrf_token %}
                 <p>Есть замечания в: </p>
-                        <p class="select_errors"><input type="checkbox" name="general">Общих критериях</p>
-                        <p class="select_errors"><input type="checkbox" name="title">Оформлении заголовков</p>
-                        <p class="select_errors"><input type="checkbox" name="lists">Оформлении списков</p>
-                        <p class="select_errors"><input type="checkbox" name="tables">Оформлении таблиц</p>
-                        <p class="select_errors"><input type="checkbox" name="formulas">Оформлении формул</p>
-                        <p class="select_errors"><input type="checkbox" name="pictures">Оформлении иллюстраций</p>
-                        <p class="select_errors"><input type="checkbox" name="literature">Оформлении библиографического списка</p>
-                        <p class="select_errors"><input type="checkbox" name="applications">Оформлении приложений</p>
+                        <p class="select_errors"><input type="checkbox" value="общем оформлении, " name="errors">Общих критериях</p>
+                        <p class="select_errors"><input type="checkbox" value="заголовках, "  name="errors">Оформлении заголовков</p>
+                        <p class="select_errors"><input type="checkbox"  value="списках, " name="errors">Оформлении списков</p>
+                        <p class="select_errors"><input type="checkbox"  value="таблицах, " name="errors">Оформлении таблиц</p>
+                        <p class="select_errors"><input type="checkbox" value="формулах, " name="errors">Оформлении формул</p>
+                        <p class="select_errors"><input type="checkbox" value="оформлении иллюстраций, " name="errors">Оформлении иллюстраций</p>
+                        <p class="select_errors"><input type="checkbox" value="библиографическом списке, " name="errors">Оформлении библиографического списка</p>
+                        <p class="select_errors"><input type="checkbox" value="приложениях, " name="errors">Оформлении приложений</p>
                         <script>
                             document.querySelector('.select_errors').style.paddingTop = '5px'
                         </script>
