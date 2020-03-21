@@ -47,6 +47,9 @@ def student(request, student_id):
     s = Students.objects.get(student_id=student_id)
     t = Teachers.objects.all()
     m = Meeting.objects.filter(student=s.student_id)
+    if request.method == 'POST':
+        del_met = Meeting.objects.get(meeting_id = request.POST.get('id'), student = s.student_id)
+        del_met.delete()
     return render(request, 'student.html', {'teachers': t, 'student': s, 'meetings': m})
 
 
@@ -101,7 +104,6 @@ def teacher(request, teacher_id):
             if begin > new_time or new_time > end:
                 del_obj = Meeting.objects.get(meeting_id = obj.meeting_id)
                 del_obj.delete()
-                # obj.delete()
             else:
                 obj.meeting_time = new_time
                 obj.save()

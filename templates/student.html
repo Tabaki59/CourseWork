@@ -46,14 +46,17 @@
     </tbody>
     </table>
     </div>
-    <div>
+    <form action="{% url 'student' student.student_id %}" method="post">
+    {% csrf_token %}
         <table>
             <thead>
                 <tr>
                     <td> Преподаватель </td>
+                    <td> Номер встречи </td>
                     <td> Состояние встречи </td>
                     <td> Время встречи </td>
                     <td> Заметки </td>
+                    <td>  </td>
                 </tr>
             </thead>
             <tbody>
@@ -62,9 +65,15 @@
                         {% for m in meetings %}
                             <tr>
                                 <td>{{ m.teacher }}</td>
+                                <td> <input type="text" name = 'id' value= "{{ m.meeting_id }}"></td>
                                 <td>{{ m.meeting_status }}</td>
                                 <td>{{ m.meeting_time }}</td>
                                 <td>{{ m.notes }}</td>
+                                {% block del_met %}
+                                    {% if m.meeting_status_id == 1  %}
+                                <td><button input type="submit">Отменить встречу</button></td>
+                                    {% endif %}
+                                {% endblock %}
                             </tr>
                         {% endfor %}
                     {% else %}
@@ -73,6 +82,6 @@
                 {% endblock %}
             </tbody>
         </table>
-    </div>
+    </form>
 </body>
 </html>
